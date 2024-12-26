@@ -1,28 +1,16 @@
-pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building the project...'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the application...'
-            }
-        }
+node {
+    stage('Build') {
+        echo 'Building the project...'
     }
-    post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
+    stage('Test') {
+        echo 'Running tests...'
+    }
+    stage('Deploy') {
+        echo 'Deploying the application...'
+    }
+    if (currentBuild.result == 'SUCCESS') {
+        echo 'Build succeeded!'
+    } else {
+        echo 'Build failed.'
     }
 }
